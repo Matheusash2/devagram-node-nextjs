@@ -48,8 +48,8 @@ const handler = nc()
     
         }catch(e){
             console.log(e);
-            return res.status(500).json({erro: 'Erro ao cadastrar usuario'});
-        }
+        };
+        return res.status(500).json({erro: 'Erro ao cadastrar usuario'});
         
     });
 
