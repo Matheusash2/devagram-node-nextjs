@@ -4,7 +4,7 @@ import type {respostaPadraoMsg} from '../types/respostaPadraoMsg'
 import { error } from 'console';
 
 export const conectarMongoDB = (handler : NextApiHandler) =>
-    async (req: NextApiRequest, res: NextApiResponse<respostaPadraoMsg>) => {
+    async (req: NextApiRequest, res: NextApiResponse<respostaPadraoMsg | any[]>) => {
         
         // verificar se o banco ja esta conecta, se estiver seguir
         // para o proximo endpoint ou middleware
