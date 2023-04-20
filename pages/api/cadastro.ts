@@ -17,9 +17,8 @@ const handler = nc()
                 return res.status(400).json({erro: 'Nome invalido'});
             }
     
-            if(!usuario.email || usuario.email.length < 5
-                || !usuario.email.includes('@') 
-                || !usuario.email.includes('.')){
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+(\.[^\s@]+)?$/;
+            if(!emailRegex.test(usuario.email)){
                 return res.status(400).json({erro: 'Email invalido'});
             }
     
