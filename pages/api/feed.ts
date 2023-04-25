@@ -2,12 +2,9 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import type { respostaPadraoMsg } from "@/types/respostaPadraoMsg";
 import { validarTokenJWT } from "@/middlewares/validarTokenJWT";
 import { conectarMongoDB } from "@/middlewares/conectarMongoDB";
-import { error } from "console";
 import { usuarioModel } from "@/models/usuarioModel";
-import { json } from "stream/consumers";
 import { publicacaoModel } from "@/models/publicacaoModel";
 import { seguidorModel } from "@/models/seguidorModel";
-import publicacao from "./publicacao";
 
 const feedEndpoint = async(req: NextApiRequest, res: NextApiResponse<respostaPadraoMsg | any>) =>{
     try{

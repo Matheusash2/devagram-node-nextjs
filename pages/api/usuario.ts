@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import type { respostaPadraoMsg } from "@/types/respostaPadraoMsg";
 import { validarTokenJWT } from "@/middlewares/validarTokenJWT";
 import { conectarMongoDB } from "@/middlewares/conectarMongoDB";
-import { error } from "console";
 import { usuarioModel } from "@/models/usuarioModel";
 import nc from "next-connect";
 import { upload, uploadImagemCosmic } from "@/services/uploadImagemCosmic";
