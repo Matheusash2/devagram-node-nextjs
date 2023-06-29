@@ -25,13 +25,11 @@ const uploadImagemCosmic = async (req: any) => {
         };
 
         if (req.url && req.url.includes('publicacao')) {
-            console.log('Imagem subiu para a pasta [publicacao]')
             return await bucketDevagram.media.insertOne({
                 media: media_object,
                 folder: 'publicacoes'
             });
         } else {
-            console.log('Imagem subiu para a pasta [avatar]')
             return await bucketDevagram.media.insertOne({
                 media: media_object,
                 folder: 'avatares'
