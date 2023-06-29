@@ -1,40 +1,43 @@
 import multer from "multer";
-import cosmicjs from "cosmicjs";
+import { createBucketClient } from '@cosmicjs/sdk';
 
-const {CHAVE_GRAVACAO_AVATARES,
-    CHAVE_GRAVACAO_PUBLICACOES,
-    BUCKET_AVATARES,
-    BUCKET_PUBLICACOES} = process.env
+const {
+    BUCKET_SLUG,
+    BUCKET_READKEY,
+    BUCKET_WRITEKEY } = process.env;
 
-const cosmic = cosmicjs();
-
-const bucketAvatres = cosmic.bucket ({
-    slug: BUCKET_AVATARES,
-    write_key: CHAVE_GRAVACAO_AVATARES
-});
-
-const bucketPublicacoes = cosmic.bucket ({
-    slug: BUCKET_PUBLICACOES,
-    write_key: CHAVE_GRAVACAO_PUBLICACOES
+const bucketDevagram = createBucketClient({
+    bucketSlug: BUCKET_SLUG,
+    readKey: BUCKET_READKEY,
+    writeKey: BUCKET_WRITEKEY
 });
 
 const storage = multer.memoryStorage();
-const upload = multer({storage: storage});
+const upload = multer({
+    storage: storage
+});
 
-const uploadImagemCosmic = async(req: any) => {
-    if(req?.file?.originalname){
+const uploadImagemCosmic = async (req: any) => {
+    if (req?.file?.originalname) {
         const media_object = {
             originalname: req.file.originalname,
-            buffer: req.file.buffer
+            buffer: req.file.buffer,
         };
-    
-        if(req.url && req.url.includes('publicacao')){
-            return await bucketPublicacoes.addMedia({media: media_object})
-        }else{
-            return await bucketAvatres.addMedia({media: media_object}); 
+
+        if (req.url && req.url.includes('publicacao')) {
+            console.log('Imagem subiu para a pasta [publicacao]')
+            return await bucketDevagram.media.insertOne({
+                media: media_object,
+                folder: 'publicacoes'
+            });
+        } else {
+            console.log('Imagem subiu para a pasta [avatar]')
+            return await bucketDevagram.media.insertOne({
+                media: media_object,
+                folder: 'avatares'
+            });
         }
-        
     }
 }
 
-export {upload, uploadImagemCosmic};
+export { upload, uploadImagemCosmic };
