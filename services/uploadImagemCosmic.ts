@@ -7,9 +7,9 @@ const {
     BUCKET_WRITEKEY } = process.env;
 
 const bucketDevagram = createBucketClient({
-    bucketSlug: BUCKET_SLUG,
-    readKey: BUCKET_READKEY,
-    writeKey: BUCKET_WRITEKEY
+    bucketSlug: BUCKET_SLUG || '',
+    readKey: BUCKET_READKEY || '',
+    writeKey: BUCKET_WRITEKEY || ''
 });
 
 const storage = multer.memoryStorage();
